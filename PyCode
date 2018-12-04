@@ -1,0 +1,99 @@
+class plotgraph:    
+    def basic(data):
+        import pandas as pd
+        import numpy as np
+        import matplotlib.pyplot as plt
+        import os
+        d={}
+        categorical=[]
+        numerical=[]
+        for i in cars:
+            d[i]=( len(np.unique(cars[i])))
+        for i in d:
+            if(d[i]<10):
+                categorical.append(i)
+            else:
+                numerical.append(i)
+        for i in categorical:
+                cars[i].value_counts().plot(kind = "barh", color="coral", fontsize=15)
+                plt.xlabel("Number of Elements", fontsize=15)
+                plt.ylabel(i, fontsize=15)
+                plt.title("Bargraph of " + i, fontsize=15)
+                plt.savefig("Bargraph of " + i)
+                plt.show()
+
+        for i in numerical:
+        #Plotting histogram
+            cars.hist(column=i, grid=False, figsize=(6,4))
+            plt.xlabel(i, fontsize=15)
+            plt.ylabel("Number of Elements", fontsize=15)
+            plt.title("Histogram of " + i.upper(), fontsize=15)
+            plt.savefig("Histogram of " + i)
+            plt.show()
+        #Plotting Boxplot              
+            cars.boxplot(column=i, fontsize=15)
+            #plt.xlabel(i, fontsize=12) 
+            plt.ylabel("Number of Elements", fontsize=15)
+            plt.title("Boxplot of " + i.upper(), fontsize=15)
+            plt.savefig("Boxplot of " + i)
+            plt.show()
+
+    def graphs(cars, directory, l=None):
+        import pandas as pd
+        import numpy as np
+        import matplotlib.pyplot as plt
+        import os
+        if l:
+            count=0
+            empty_dict={}
+            empty=[]
+            for i in cars:
+                empty_dict[count]=i
+                count+=1
+            for i in l:
+                empty.append(empty_dict[i])  
+
+            d={}
+            categorical=[]
+            numerical=[]
+            for i in empty:
+                d[i]=( len(np.unique(cars[i])))
+            for i in d:
+                if(d[i]<10):
+                    categorical.append(i)
+                else:
+                    numerical.append(i)
+            print("categorical columns are : ", categorical)
+            print("numerical columns are : ", numerical)
+
+        #Plotting bar graph for categorical values 
+            for i in categorical:
+                cars[i].value_counts().plot(kind = "barh", color="coral", fontsize=15)
+                plt.xlabel("Number of Elements", fontsize=15)
+                plt.ylabel(i, fontsize=15)
+                plt.title("Bargraph of " + i, fontsize=15)
+                plt.savefig(directory+"/Bargraph of " + i + ".png")
+                plt.show()
+
+            for i in numerical:
+        #Plotting histogram
+                cars.hist(column=i, grid=False, figsize=(6,4))
+                plt.xlabel(i, fontsize=15)
+                plt.ylabel("Number of Elements", fontsize=15)
+                plt.title("Histogram of " + i.upper(), fontsize=15)
+                plt.savefig(directory + "/Histogram of " + i + ".png")
+                plt.show()
+        #Plotting Boxplot              
+                cars.boxplot(column=i, fontsize=15)
+                #plt.xlabel(i, fontsize=12) 
+                plt.ylabel("Number of Elements", fontsize=15)
+                plt.title("Boxplot of " + i.upper(), fontsize=15)
+                plt.savefig(directory + "/Boxplot of " + i + ".png")
+                plt.show()
+
+        elif(l==[]):
+            print("Enter the column number in a list which you want to plot graph")
+
+        elif(l==None ):
+            return(basic(cars))
+            
